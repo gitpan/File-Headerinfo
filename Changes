@@ -1,0 +1,8 @@
+Revision history for Perl extension File::Headerinfo.
+
+0.01 Fri June 4 2004
+     * Extracted from the application Delivery and made standalone
+     * factory interface hidden behind a simple read() method
+     * File::Headerinfo::Image added
+     * codec, data rate and audio frequency also retrieved where relevant
+
