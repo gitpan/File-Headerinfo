@@ -7,7 +7,7 @@ WriteMakefile(
     'VERSION_FROM'	=> 'lib/File/Headerinfo.pm', # finds $VERSION
     'PREREQ_PM'		=> {
         Video::Info => 0,
-        SWF::header => 0,
+        SWF::Header => 0,
         Image::Size => 0,
         Audio::Wav => 0,
         MP3::Info => 0,

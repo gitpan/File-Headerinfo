@@ -4,7 +4,7 @@ DESCRIPTION
 
 All this module does is to gather together a set of existing file-reader modules 
 and put them all behind a simple friendly interface. it has a factory architecture
-that should make it easy to extend, and using it is as easy as:
+that should make it easy to extend, and using it is as simple as:
 
   my $info = File::Headerinfo->read('/path/to/file.ext');
 
