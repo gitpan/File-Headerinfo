@@ -1,5 +1,9 @@
 Revision history for Perl extension File::Headerinfo.
 
+0.03 Tue June 15 2004
+     * small bug fixes, and added 'version' to list of recorded attributes,
+       which is initially only of use with shockwave files.
+
 0.02 Fri June 4 2004
      * Removed stupid makefile typo that has no effect on OS X but will 
        bork everyone else.

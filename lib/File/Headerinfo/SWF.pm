@@ -23,6 +23,7 @@ sub parse_file {
     $self->duration($header->{duration});
     $self->fps($header->{rate});
     $self->filesize($header->{filelen});
+    $self->version($header->{version});
 }
 
 =head1 COPYRIGHT

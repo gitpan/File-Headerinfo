@@ -4,7 +4,7 @@ use strict;
 use Carp;
 
 use vars qw( $VERSION $AUTOLOAD );
-$VERSION = '0.02';
+$VERSION = '0.03';
 
 =head1 NAME
 
@@ -30,7 +30,7 @@ In normal use that minor complexity is hidden from view: all you have to do is p
 
 =head1 METHODS
 
-=head2 read( '/path/to/file.ext')
+=head2 read( $path, $type)
 
 Examines the file we have been supplied with, creates an object of the appropriate class and tells it to examine the file. 
 
@@ -38,7 +38,7 @@ Loading of the subclasses is deferred until it's necessary, as some of them use 
 
 You can force a file to be treated as a particular type by supplying the appropriate three or four letter file suffix as a second parameter:
 
-  my %fileinfo = File::Headerinfo('/path/to/file', 'mpeg');
+  my $fileinfo = File::Headerinfo->read('/path/to/file', 'mpeg');
 
 =cut
 
@@ -59,11 +59,11 @@ A very simple constructor that is rarely called directly. It is inherited by all
 
   my $reader = File::Headerinfo::SWF->new('/path/to/file.swf');
   $reader->parse_file;
-  my %report = $reader->report;
+  my $report = $reader->report;
 
 but needn't bother, since the same thing is achieved by writing:
 
-  my %report = File::Headerinfo->read('/path/to/file.swf');
+  my $report = File::Headerinfo->read('/path/to/file.swf');
 
 =cut
 
@@ -86,7 +86,7 @@ sub path {
     return $self->{_path};
 }
 
-=head2 subclass()
+=head2 subclass( $path, $type )
 
 Identifies the subclass (or other class) that is meant to read files of the type supplied.
 
@@ -100,7 +100,7 @@ sub subclass {
     return $class;
 }
 
-=head2 _suffix()
+=head2 _suffix( $path )
 
 Not a method: just a useful helper. Returns the file suffix, with no dot. Useful if we have no other way of identifying the file type.
 
@@ -162,7 +162,7 @@ returns the class name we'll try to use if we can't think of anything else.
 
 =cut
 
-sub default_media_class { 'Delivery::Clip::File::Video' }
+sub default_media_class { 'File::Headerinfo::Video' }
 
 =head2 fields()
 
@@ -173,10 +173,10 @@ This list is used by AUTOLOAD to create get and set methods, and by report to bu
 =cut
 
 sub fields {
-    return qw(height width duration filetype freq fps filesize datarate vcodec metadata);
+    return qw(height width duration filetype freq fps filesize datarate vcodec metadata version);
 }
 
-=head2 allowed_field()
+=head2 allowed_field( $fieldname )
 
 Returns true if the supplied value is in the list of allowed fields.
 
@@ -187,7 +187,6 @@ sub allowed_field {
     my %fields = map {$_ => 1 } $self->fields;
     return $fields{$f};
 }
-
 
 =head2 report()
 
